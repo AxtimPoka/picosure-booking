@@ -147,11 +147,5 @@ const store = useBookingStore();
     <button class="btn-main !mb-0" @click="store.goToStep(2)">
       選擇你最在意的膚況 →
     </button>
-    <button
-      class="block mx-auto mt-3 text-[13px] text-txt-3 underline underline-offset-2 hover:text-teal-dk transition-colors"
-      @click="store.skipToBooking()"
-    >
-      直接預約諮詢
-    </button>
   </div>
 </template>

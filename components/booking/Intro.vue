@@ -80,15 +80,9 @@ const store = useBookingStore();
         </div>
       </div>
 
-      <!-- 雙 CTA -->
+      <!-- CTA -->
       <button class="btn-main !mb-0" @click="store.goToStep(1)">
         了解 PicoSure 核心科技 →
-      </button>
-      <button
-        class="block mx-auto mt-4 text-[13px] text-txt-3 underline underline-offset-2 hover:text-teal-dk transition-colors"
-        @click="store.skipToBooking()"
-      >
-        我已了解，直接預約諮詢
       </button>
     </div>
   </div>
