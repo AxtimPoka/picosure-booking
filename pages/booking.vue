@@ -50,20 +50,11 @@ watch(
       <div
         class="sticky top-0 z-[100] bg-white/92 backdrop-blur-md border-b border-border"
       >
-        <!-- Brand + 立即預約 CTA -->
-        <div
-          class="px-5 py-3 flex items-center justify-between max-w-[480px] mx-auto"
-        >
+        <!-- Brand -->
+        <div class="px-5 py-3 max-w-[480px] mx-auto">
           <div class="text-[12px] tracking-[2px] text-teal-dk font-medium">
             PicoSure 皮秒 · 預約諮詢
           </div>
-          <button
-            v-if="store.currentStep < 3"
-            class="bg-teal text-white text-[11px] font-medium tracking-wider rounded-full px-3.5 py-1.5 hover:bg-teal-dk transition-colors"
-            @click="store.skipToBooking()"
-          >
-            立即預約 →
-          </button>
         </div>
 
         <!-- 前置漏斗 progress bar -->

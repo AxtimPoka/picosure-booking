@@ -98,10 +98,6 @@ export const useBookingStore = defineStore('booking', {
     goToStep(step: number) {
       if (step >= 0 && step <= MAX_STEP) this.currentStep = step
     },
-    /** Hero / Tech 上的「直接預約諮詢」捷徑 → 跳至 Calendar (step 3) */
-    skipToBooking() {
-      this.currentStep = 3
-    },
     reset() {
       this.$reset()
     },
