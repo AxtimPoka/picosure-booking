@@ -20,10 +20,12 @@ async function submitBooking() {
     await $fetch("/api/booking", {
       method: "POST",
       body: {
-        items: store.selectedAreas.map((a) => ({
-          area_id: a.id,
-          area_name: a.name,
-          unit_price: a.price,
+        concerns: store.selectedConcerns.map((id) => ({
+          id,
+          label:
+            store.selectedConcernLabels[
+              store.selectedConcerns.indexOf(id)
+            ] || id,
         })),
         location: store.selectedLocation,
         scheduled_at: store.scheduledAt,
@@ -34,7 +36,7 @@ async function submitBooking() {
       },
     });
     submitted.value = true;
-    store.currentStep = 5;
+    store.currentStep = 6;
   } catch (err: any) {
     errorMsg.value = err?.data?.message || "預約失敗，請稍後再試。";
   } finally {
@@ -90,16 +92,20 @@ function startOver() {
         </div>
 
         <div class="bg-white px-[18px]">
-          <!-- 預約項目 -->
-          <div class="py-2.5 border-b border-[rgba(115,198,203,0.10)]">
-            <span class="text-[12px] text-txt-3 tracking-[2px] block mb-2">預約項目</span>
-            <div
-              v-for="area in store.selectedAreas"
-              :key="area.id"
-              class="flex justify-between items-center py-1"
-            >
-              <span class="text-[15px] text-txt-1">{{ area.name }}</span>
-              <span class="text-[14px] text-teal-dk">NT$ {{ area.price.toLocaleString() }} / 堂</span>
+          <!-- 關注膚況 -->
+          <div
+            v-if="store.selectedConcernCount > 0"
+            class="py-2.5 border-b border-[rgba(115,198,203,0.10)]"
+          >
+            <span class="text-[12px] text-txt-3 tracking-[2px] block mb-2">關注膚況</span>
+            <div class="flex flex-wrap gap-1.5">
+              <span
+                v-for="label in store.selectedConcernLabels"
+                :key="label"
+                class="inline-block bg-teal-faint text-teal-dk text-[12px] font-medium px-2.5 py-1 rounded-full"
+              >
+                {{ label }}
+              </span>
             </div>
           </div>
           <div class="flex justify-between items-start py-2.5 border-b border-[rgba(115,198,203,0.10)]">
@@ -129,86 +135,62 @@ function startOver() {
         </div>
       </div>
 
-      <!-- Pre-Treatment Notice -->
-      <div class="border border-border rounded-[14px] bg-gradient-to-b from-teal to-teal-dk overflow-hidden mb-6 shadow-[0_2px_16px_rgba(115,198,203,0.12)]">
-        <!-- Header -->
+      <!-- 諮詢前準備 -->
+      <div
+        class="border border-border rounded-[14px] bg-gradient-to-b from-teal to-teal-dk overflow-hidden mb-6 shadow-[0_2px_16px_rgba(115,198,203,0.12)]"
+      >
         <div class="text-center pt-8 pb-6 px-6">
           <h3 class="text-white text-[20px] font-light tracking-[8px] mb-1">
-            除毛療程｜術前須知
+            諮詢當天｜你可以準備
           </h3>
         </div>
 
-        <!-- Content -->
-        <div class="bg-white px-6 pt-4 pb-8">
-          <p class="text-[15px] text-txt-2 text-center leading-relaxed mb-6">
-            為了讓除毛效果更穩定、降低不適感，請在療程前完成以下準備
-          </p>
+        <div class="bg-white px-6 pt-5 pb-7">
+          <ul class="space-y-3 mb-6">
+            <li
+              v-for="tip in [
+                '想改善的膚況照片（素顏、自然光下拍攝最佳）',
+                '過去做過的雷射或療程紀錄',
+                '目前使用的保養品清單',
+                '你期待的膚況目標',
+              ]"
+              :key="tip"
+              class="flex items-start gap-3"
+            >
+              <span
+                class="shrink-0 mt-0.5 w-5 h-5 rounded-full bg-teal-faint flex items-center justify-center text-teal text-[12px] font-bold"
+              >
+                ✓
+              </span>
+              <p class="text-[14px] text-txt-2 leading-[1.7]">{{ tip }}</p>
+            </li>
+          </ul>
 
-          <!-- Items Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
-            <!-- Item 1 -->
-            <div class="bg-white border border-teal-line rounded-xl p-4">
-              <div class="flex items-center justify-center w-10 h-10 rounded-full bg-teal text-white text-[15px] font-medium mb-3">
-                1
-              </div>
-              <h4 class="text-[15px] font-medium text-txt-1 mb-2">療程前 3–7 天先刮毛</h4>
-              <p class="text-[11px] text-txt-3 leading-relaxed">
-                將毛髮剃短即可，保留些許黑色毛根（小黑點是正常的），效果更佳。
-              </p>
-            </div>
-
-            <!-- Item 2 -->
-            <div class="bg-white border border-teal-line rounded-xl p-4">
-              <div class="flex items-center justify-center w-10 h-10 rounded-full bg-teal text-white text-[15px] font-medium mb-3">
-                2
-              </div>
-              <h4 class="text-[15px] font-medium text-txt-1 mb-2">術前 2–4 週避免拔毛</h4>
-              <p class="text-[11px] text-txt-3 leading-relaxed">
-                請勿使用拔毛、蜜蠟、線除毛或除毛膏，以免缺少作用目標。
-              </p>
-            </div>
-
-            <!-- Item 3 -->
-            <div class="bg-white border border-teal-line rounded-xl p-4">
-              <div class="flex items-center justify-center w-10 h-10 rounded-full bg-teal text-white text-[15px] font-medium mb-3">
-                3
-              </div>
-              <h4 class="text-[15px] font-medium text-txt-1 mb-2">術前避免日曬與美白</h4>
-              <p class="text-[11px] text-txt-3 leading-relaxed">
-                皮膚曬黑或敏感時療程，容易增加刺激感與反黑風險。
-              </p>
-            </div>
-
-            <!-- Item 4 -->
-            <div class="bg-white border border-teal-line rounded-xl p-4">
-              <div class="flex items-center justify-center w-10 h-10 rounded-full bg-teal text-white text-[15px] font-medium mb-3">
-                4
-              </div>
-              <h4 class="text-[15px] font-medium text-txt-1 mb-2">當天保持肌膚清爽</h4>
-              <p class="text-[11px] text-txt-3 leading-relaxed">
-                避免擦乳液、香水、止汗劑或身體油。敷麻請依診所指示。
-              </p>
-            </div>
-          </div>
-
-          <!-- Warning Section -->
           <div class="bg-teal-faint border border-teal-line rounded-xl p-4">
             <div class="flex items-start gap-2 mb-3">
-              <div class="flex items-center justify-center w-6 h-6 rounded-full bg-teal text-white text-[11px] shrink-0 mt-0.5">
+              <div
+                class="flex items-center justify-center w-6 h-6 rounded-full bg-teal text-white text-[11px] shrink-0 mt-0.5"
+              >
                 ⓘ
               </div>
-              <h4 class="text-[15px] font-medium text-txt-1">以下情況請先告知我們</h4>
+              <h4 class="text-[15px] font-medium text-txt-1">
+                諮詢完全免費，請放心
+              </h4>
             </div>
-            <div class="flex flex-wrap gap-2 pl-8">
-              <span class="inline-block bg-white border border-teal-line rounded-full px-3 py-1 text-[11px] text-txt-2">懷孕／哺乳</span>
-              <span class="inline-block bg-white border border-teal-line rounded-full px-3 py-1 text-[11px] text-txt-2">皮膚破皮</span>
-              <span class="inline-block bg-white border border-teal-line rounded-full px-3 py-1 text-[11px] text-txt-2">曬傷</span>
-              <span class="inline-block bg-white border border-teal-line rounded-full px-3 py-1 text-[11px] text-txt-2">濕疹</span>
-              <span class="inline-block bg-white border border-teal-line rounded-full px-3 py-1 text-[11px] text-txt-2">毛囊炎</span>
-              <span class="inline-block bg-white border border-teal-line rounded-full px-3 py-1 text-[11px] text-txt-2">近期雷射／煥膚</span>
-              <span class="inline-block bg-white border border-teal-line rounded-full px-3 py-1 text-[11px] text-txt-2">特殊用藥</span>
-              <span class="inline-block bg-white border border-teal-line rounded-full px-3 py-1 text-[11px] text-txt-2">過敏史</span>
-            </div>
+            <ul class="space-y-2 pl-8">
+              <li
+                v-for="tip in [
+                  '醫師會根據你的膚況提供專業建議',
+                  '不會有任何強迫消費或現場推銷',
+                  '你可以帶著方案回家考慮再決定',
+                ]"
+                :key="tip"
+                class="text-[12.5px] text-txt-2 leading-[1.7] relative pl-3"
+              >
+                <span class="absolute left-0 top-2 w-1 h-1 rounded-full bg-teal" />
+                {{ tip }}
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -263,16 +245,20 @@ function startOver() {
 
         <!-- Body -->
         <div class="bg-white px-[18px]">
-          <!-- 預約項目 -->
-          <div class="py-2.5 border-b border-[rgba(115,198,203,0.10)]">
-            <span class="text-[12px] text-txt-3 tracking-[2px] block mb-2">預約項目</span>
-            <div
-              v-for="area in store.selectedAreas"
-              :key="area.id"
-              class="flex justify-between items-center py-1"
-            >
-              <span class="text-[15px] text-txt-1">{{ area.name }}</span>
-              <span class="text-[14px] text-teal-dk">NT$ {{ area.price.toLocaleString() }} / 堂</span>
+          <!-- 關注膚況 -->
+          <div
+            v-if="store.selectedConcernCount > 0"
+            class="py-2.5 border-b border-[rgba(115,198,203,0.10)]"
+          >
+            <span class="text-[12px] text-txt-3 tracking-[2px] block mb-2">關注膚況</span>
+            <div class="flex flex-wrap gap-1.5">
+              <span
+                v-for="label in store.selectedConcernLabels"
+                :key="label"
+                class="inline-block bg-teal-faint text-teal-dk text-[12px] font-medium px-2.5 py-1 rounded-full"
+              >
+                {{ label }}
+              </span>
             </div>
           </div>
 

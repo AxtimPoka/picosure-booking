@@ -151,7 +151,7 @@ function cancelDoctorPicker() {
 
 <template>
   <div>
-    <button class="btn-back" @click="store.prevStep()">← 返回方案選擇</button>
+    <button class="btn-back" @click="store.prevStep()">← 返回膚況選擇</button>
 
     <!-- Location Selector -->
     <div class="sec-label">選擇院區</div>
@@ -285,7 +285,7 @@ function cancelDoctorPicker() {
 
     <button
       class="btn-main"
-      :disabled="!store.canProceedToStep3"
+      :disabled="!store.canProceedFromCalendar"
       @click="store.nextStep()"
     >
       下一步 · 填寫資料
