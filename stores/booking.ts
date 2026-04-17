@@ -61,9 +61,6 @@ export const useBookingStore = defineStore('booking', {
         .filter(Boolean) as string[]
     },
 
-    isConcernSelected: (state) => (id: string): boolean =>
-      state.selectedConcerns.includes(id),
-
     canProceedFromCalendar: (state) =>
       state.selectedLocation !== '' &&
       state.selectedDate !== '' &&
@@ -80,6 +77,10 @@ export const useBookingStore = defineStore('booking', {
   },
 
   actions: {
+    isConcernSelected(id: string): boolean {
+      return this.selectedConcerns.includes(id)
+    },
+
     toggleConcern(id: string) {
       const idx = this.selectedConcerns.indexOf(id)
       if (idx >= 0) {
