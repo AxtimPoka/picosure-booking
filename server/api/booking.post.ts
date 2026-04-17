@@ -2,16 +2,16 @@ import { z } from 'zod'
 import { getCalendarClient, getCalendarId } from '~/utils/googleCalendar'
 
 const bookingSchema = z.object({
-  items: z
+  concerns: z
     .array(
       z.object({
-        area_id: z.string(),
-        area_name: z.string(),
-        unit_price: z.number(),
+        id: z.string(),
+        label: z.string(),
       }),
     )
-    .min(1)
-    .max(6),
+    .max(6)
+    .optional()
+    .default([]),
   location: z.string().min(1),
   scheduled_at: z.string().datetime({ offset: true }),
   customer_name: z.string().min(1),
@@ -36,8 +36,8 @@ export default defineEventHandler(async (event) => {
   const calendarId = getCalendarId(data.location)
   const calendar = getCalendarClient()
 
-  // Derive area names for downstream use
-  const areaNames = data.items.map((i) => i.area_name)
+  // Derive concern labels for downstream use
+  const concernLabels = data.concerns.map((c) => c.label)
 
   // 2. Double-check slot availability (prevent race condition)
   const slotStart = new Date(data.scheduled_at)
@@ -79,8 +79,8 @@ export default defineEventHandler(async (event) => {
       const { data: appointment, error: dbError } = await supabase
         .from('appointments')
         .insert({
-          items: data.items,
-          areas: areaNames,
+          concerns: data.concerns,
+          areas: concernLabels,
           location: data.location,
           scheduled_at: data.scheduled_at,
           customer_name: data.customer_name,
@@ -109,13 +109,13 @@ export default defineEventHandler(async (event) => {
     const gcalEvent = await calendar.events.insert({
       calendarId,
       requestBody: {
-        summary: `PicoSure 預約 - ${data.customer_name}`,
+        summary: `PicoSure 諮詢預約 - ${data.customer_name}`,
         description: [
           `客戶：${data.customer_name}`,
           `電話：${data.customer_phone}`,
           `院區：${data.location}`,
           data.doctor ? `醫師：${data.doctor}` : '',
-          `項目：${areaNames.join('、')}`,
+          concernLabels.length ? `關注膚況：${concernLabels.join('、')}` : '',
           data.note ? `備註：${data.note}` : '',
         ]
           .filter(Boolean)
@@ -166,7 +166,7 @@ export default defineEventHandler(async (event) => {
       location: data.location,
       scheduledAt: scheduledAtDisplay,
       doctor: data.doctor,
-      areas: areaNames,
+      areas: concernLabels,
     }
 
     await Promise.allSettled([
