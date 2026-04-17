@@ -7,122 +7,83 @@ const store = useBookingStore();
 
 <template>
   <div class="fixed inset-0 z-[200] overflow-y-auto bg-white">
-    <!-- 頂部圖片區 -->
+    <!-- ── 頂部 Hero 視覺 ── -->
     <div class="relative w-full aspect-[4/3] overflow-hidden">
       <img
         :src="bgImage"
-        alt="Alexandrite Pro-U"
+        alt="PicoSure 皮秒雷射"
         class="w-full h-full object-cover"
       />
+
+      <!-- 漸層遮罩，讓底部白字浮現 -->
+      <div class="absolute inset-0 bg-gradient-to-b from-black/0 via-black/15 to-black/55" />
+
+      <!-- Hero 文字疊加 -->
+      <div class="absolute inset-0 flex flex-col items-center justify-end pb-14 px-7 text-center">
+        <div
+          class="inline-block text-[10px] tracking-[3px] text-white/90 border border-white/30 rounded-full px-3.5 py-1 mb-4"
+        >
+          PICOSURE PRO · 755nm
+        </div>
+        <h1 class="font-en italic text-[28px] text-white font-light tracking-wide leading-tight mb-1">
+          PicoSure
+        </h1>
+        <h2 class="text-[17px] text-white font-light tracking-[6px] mb-2">
+          皮 秒 雷 射
+        </h2>
+        <p class="text-[11px] text-white/70 tracking-[2px]">
+          755nm · 蜂巢透鏡 · LIOB 養膚科技
+        </p>
+      </div>
+
       <!-- 底部圓弧遮罩 -->
       <div class="absolute -bottom-1 left-0 right-0 h-10 bg-white rounded-t-[28px]" />
     </div>
 
-    <!-- 內容區 -->
-    <div class="relative bg-white px-7 -mt-1 pb-32">
+    <!-- ── Hero Body ── -->
+    <div class="relative bg-white px-7 -mt-1 pb-32 max-w-[480px] mx-auto">
       <!-- Logo -->
-      <img src="/clinic-logo.png" alt="Logo" class="w-28 object-contain mb-5" />
+      <img src="/clinic-logo.png" alt="Logo" class="w-24 object-contain mb-5 mx-auto" />
 
       <!-- 主標題 -->
-      <h1 class="font-serif text-[26px] font-light text-txt-1 leading-[1.45] mb-6">
-        亞歷山大<br />除毛雷射
+      <h1 class="font-serif text-[22px] font-normal text-txt-1 leading-[1.55] mb-4 text-center">
+        想要的不只是<span class="text-teal-dk font-medium border-b-2 border-teal-line">除斑</span>，<br />
+        而是膚質真正<span class="text-teal-dk font-medium border-b-2 border-teal-line">變好</span>
       </h1>
 
-      <!-- 副標 -->
-      <p class="text-[12px] tracking-[4px] text-teal font-normal mb-5 uppercase">
-        Alexandrite Pro-U · 755nm
+      <!-- 描述 -->
+      <p class="text-[14px] text-txt-2 leading-[2] font-light mb-7 text-center">
+        傳統雷射讓斑淡了，膚質卻沒提升。<br />
+        PicoSure 以 755nm 精準波長與蜂巢透鏡，<br />
+        從真皮層喚醒新生與修復。
       </p>
 
-      <!-- 介紹文字 -->
-      <p class="text-[15px] text-txt-1/70 leading-[2] font-light mb-8">
-        利用 <span class="text-teal-dk font-normal">755nm</span>
-        波長的紫翠玉雷射光，精準作用於毛囊黑色素，在千分之一秒內破壞毛囊再生結構，達到長效減少毛髮的效果。
-      </p>
-
-      <!-- 分隔線 -->
-      <div class="w-8 h-px bg-teal-line mb-7" />
-
-      <!-- 獨特優勢 -->
-      <div class="sec-label">PRO-U 獨特優勢</div>
-
-      <div class="space-y-5 mb-8">
-        <div class="flex gap-4 items-start">
-          <div class="w-9 h-9 rounded-full bg-teal-faint border border-teal-line flex items-center justify-center flex-shrink-0 mt-0.5">
-            <span class="text-teal text-[14px]">✦</span>
-          </div>
-          <div>
-            <p class="text-[14px] font-medium text-txt-1 mb-1">755nm 黃金波長</p>
-            <p class="text-[14px] text-txt-3 leading-[1.8] font-light">
-              對黑色素吸收效率最佳，適合亞洲人膚質，以較低能量即可達到理想效果
-            </p>
+      <!-- 3 個 stat 數據卡 -->
+      <div class="grid grid-cols-3 gap-2.5 mb-8">
+        <div class="bg-bg-card border border-border rounded-xl py-4 px-2 text-center">
+          <div class="font-en text-[26px] text-teal-dk font-medium leading-none mb-1.5">755</div>
+          <div class="text-[10px] text-txt-3 leading-[1.5] font-light">
+            nm 精準波長<br />黑色素專一
           </div>
         </div>
-
-        <div class="flex gap-4 items-start">
-          <div class="w-9 h-9 rounded-full bg-teal-faint border border-teal-line flex items-center justify-center flex-shrink-0 mt-0.5">
-            <span class="text-teal text-[14px]">❄</span>
-          </div>
-          <div>
-            <p class="text-[14px] font-medium text-txt-1 mb-1">DCD 冷凝專利技術</p>
-            <p class="text-[14px] text-txt-3 leading-[1.8] font-light">
-              雷射前噴灑 -20°C 冷凝劑保護皮膚，大幅降低不適感與熱傷害風險
-            </p>
+        <div class="bg-bg-card border border-border rounded-xl py-4 px-2 text-center">
+          <div class="font-en text-[26px] text-teal-dk font-medium leading-none mb-1.5">20×</div>
+          <div class="text-[10px] text-txt-3 leading-[1.5] font-light">
+            蜂巢透鏡<br />能量聚焦倍率
           </div>
         </div>
-
-        <div class="flex gap-4 items-start">
-          <div class="w-9 h-9 rounded-full bg-teal-faint border border-teal-line flex items-center justify-center flex-shrink-0 mt-0.5">
-            <span class="text-teal text-[14px]">◎</span>
-          </div>
-          <div>
-            <p class="text-[14px] font-medium text-txt-1 mb-1">智能能量調控</p>
-            <p class="text-[14px] text-txt-3 leading-[1.8] font-light">
-              由專業醫師依個人膚色、毛髮粗細即時調整能量參數，確保安全與效果
-            </p>
+        <div class="bg-bg-card border border-border rounded-xl py-4 px-2 text-center">
+          <div class="font-en text-[26px] text-teal-dk font-medium leading-none mb-1.5">0</div>
+          <div class="text-[10px] text-txt-3 leading-[1.5] font-light">
+            開放性傷口<br />LIOB 養膚科技
           </div>
         </div>
       </div>
 
-      <!-- 療程效果 -->
-      <div class="sec-label">療程效果</div>
-      <div class="grid grid-cols-2 gap-x-4 gap-y-2.5 mb-8">
-        <div
-          v-for="item in [
-            '長效減少毛髮再生',
-            '改善膚色暗沉',
-            '減少毛囊炎問題',
-            '肌膚更光滑細緻',
-          ]"
-          :key="item"
-          class="flex items-start gap-2"
-        >
-          <span class="text-teal text-[8px] mt-[5px] flex-shrink-0">●</span>
-          <span class="text-[14px] text-txt-1 font-light leading-[1.7]">{{ item }}</span>
-        </div>
-      </div>
-
-      <!-- 體感與恢復 -->
-      <div class="sec-label">體感與恢復</div>
-      <div class="space-y-2.5">
-        <div v-for="tip in [
-          '體感如橡皮筋輕彈，怕痛可事先敷麻藥',
-          '不影響日常上班，當天避免泡湯與激烈運動',
-          '建議 6-8 次完整療程，間隔約 4-8 週',
-        ]" :key="tip" class="flex items-start gap-2.5">
-          <span class="text-[11px] text-teal-dk mt-[1px]">▸</span>
-          <p class="text-[14px] text-txt-1 font-light leading-[1.8]">{{ tip }}</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 底部 CTA -->
-    <div class="fixed bottom-0 left-0 right-0 z-[210] bg-white border-t border-border px-5 py-4 shadow-[0_-2px_12px_rgba(0,0,0,0.06)]">
-      <div class="max-w-[480px] mx-auto">
-        <button class="btn-main" @click="store.nextStep()">
-          立即預約 →
-        </button>
-        <p class="note">除毛專案 · 腋下除毛 NT$399 起</p>
-      </div>
+      <!-- CTA -->
+      <button class="btn-main !mb-0" @click="store.goToStep(1)">
+        了解 PicoSure 核心科技 →
+      </button>
     </div>
   </div>
 </template>

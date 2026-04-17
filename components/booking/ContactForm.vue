@@ -60,7 +60,7 @@ const phoneError = computed(() => {
 
     <button
       class="btn-main"
-      :disabled="!store.canProceedToStep4"
+      :disabled="!store.canProceedFromContact"
       @click="store.nextStep()"
     >
       下一步 · 確認預約
