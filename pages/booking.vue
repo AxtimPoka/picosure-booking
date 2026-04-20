@@ -52,8 +52,8 @@ watch(
       >
         <!-- Brand -->
         <div class="px-5 py-3 max-w-[480px] mx-auto">
-          <div class="text-[12px] tracking-[2px] text-teal-dk font-medium">
-            PicoSure 皮秒 · 預約諮詢
+          <div class="text-[14px] tracking-[2px] text-teal-dk font-medium">
+            Picosure Pro 鉑金蜂巢皮秒 · 預約諮詢
           </div>
         </div>
 
@@ -68,7 +68,7 @@ watch(
               :style="{ width: funnelProgress + '%' }"
             />
           </div>
-          <div class="flex justify-between mt-1.5 text-[10px] text-txt-3">
+          <div class="flex justify-between mt-1.5 text-[12px] text-txt-3">
             <span
               v-for="(item, idx) in FUNNEL_LABELS.slice(1)"
               :key="idx"
@@ -101,7 +101,7 @@ watch(
               />
               <div class="flex flex-col items-center gap-[5px]">
                 <div
-                  class="w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-normal border transition-all duration-300"
+                  class="w-7 h-7 rounded-full flex items-center justify-center text-[12px] font-normal border transition-all duration-300"
                   :class="{
                     'bg-teal border-teal text-white':
                       store.currentStep === step.num,
@@ -114,7 +114,7 @@ watch(
                   {{ idx + 1 }}
                 </div>
                 <span
-                  class="text-[12px] tracking-wide"
+                  class="text-[14px] tracking-wide"
                   :class="{
                     'text-teal font-medium':
                       store.currentStep === step.num,

@@ -46,7 +46,7 @@ export async function notifyStaff(options: NotifyOptions) {
 
   const itemsContents = options.areas.map((area) => ({
     type: 'text' as const,
-    text: `• picosure諮詢-${area}`,
+    text: `• picosure pro 諮詢-${area}`,
     size: 'sm' as const,
     color: '#555555',
     wrap: true,

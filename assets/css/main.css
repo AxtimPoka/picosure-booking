@@ -16,7 +16,7 @@
 @layer components {
   /* ── Section Label ── */
   .sec-label {
-    @apply text-[12px] tracking-[3px] text-teal font-normal mb-3.5 flex items-center gap-2.5;
+    @apply text-[14px] tracking-[3px] text-teal font-normal mb-3.5 flex items-center gap-2.5;
   }
   .sec-label::after {
     content: '';
@@ -25,7 +25,7 @@
 
   /* ── Primary Action Button ── */
   .btn-main {
-    @apply w-full bg-teal text-white border-none rounded-full py-3.5 text-[15px]
+    @apply w-full bg-teal text-white border-none rounded-full py-3.5 text-[18px]
            font-medium cursor-pointer font-sans tracking-[3px] transition-all
            duration-200 mb-2 hover:bg-teal-dk disabled:bg-txt-3 disabled:cursor-default
            disabled:opacity-50;
@@ -33,13 +33,13 @@
 
   /* ── Back Button ── */
   .btn-back {
-    @apply bg-transparent border-none text-txt-3 text-[12px] cursor-pointer
+    @apply bg-transparent border-none text-txt-3 text-[14px] cursor-pointer
            font-sans tracking-wide p-0 mb-6 flex items-center gap-1.5
            transition-colors duration-200 hover:text-teal;
   }
 
   /* ── Footer Note ── */
   .note {
-    @apply text-[12px] text-txt-3 text-center leading-[1.8] mt-1.5;
+    @apply text-[14px] text-txt-3 text-center leading-[1.8] mt-1.5;
   }
 }

@@ -25,11 +25,11 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: '璧時尚醫美診所 · PicoSure 預約',
+      title: '璧時尚醫美診所 · PicoSure Pro 預約',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: '璧時尚醫美診所線上 PicoSure 預約系統' },
+        { name: 'description', content: '璧時尚醫美診所線上 Picosure Pro 預約系統' },
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/befashion-favicon-32x32.ico' },

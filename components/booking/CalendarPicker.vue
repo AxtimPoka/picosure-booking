@@ -205,7 +205,7 @@ function cancelDoctorPicker() {
       <div
         v-for="wd in WEEKDAYS"
         :key="wd"
-        class="text-[12px] text-txt-3 text-center py-[5px]"
+        class="text-[14px] text-txt-3 text-center py-[5px]"
       >
         {{ wd }}
       </div>
@@ -246,12 +246,12 @@ function cancelDoctorPicker() {
     <div v-if="store.selectedDate">
       <div class="sec-label">選擇時段</div>
 
-      <div v-if="loadingSlots" class="text-center text-txt-3 py-6 text-[15px]">
+      <div v-if="loadingSlots" class="text-center text-txt-3 py-6 text-[18px]">
         查詢可用時段中...
       </div>
       <div
         v-else-if="availableSlots.length === 0"
-        class="text-center text-txt-3 py-6 text-[15px]"
+        class="text-center text-txt-3 py-6 text-[18px]"
       >
         該日期暫無可預約時段
       </div>
@@ -275,7 +275,7 @@ function cancelDoctorPicker() {
           >
             {{ slot.time }}
           </p>
-          <p class="text-[12px] text-txt-3 mt-0.5">
+          <p class="text-[14px] text-txt-3 mt-0.5">
             {{ slot.doctors.length === 1 ? slot.doctors[0] : `${slot.doctors.length} 位醫師` }}
           </p>
         </div>

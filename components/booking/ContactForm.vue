@@ -20,7 +20,7 @@ const phoneError = computed(() => {
     <div class="sec-label">填寫聯絡資料</div>
 
     <div class="mb-3.5">
-      <label class="block text-[11px] tracking-[2px] text-txt-2 mb-[7px]">
+      <label class="block text-[12px] tracking-[2px] text-txt-2 mb-[7px]">
         姓 名
       </label>
       <input
@@ -32,7 +32,7 @@ const phoneError = computed(() => {
     </div>
 
     <div class="mb-3.5">
-      <label class="block text-[11px] tracking-[2px] text-txt-2 mb-[7px]">
+      <label class="block text-[12px] tracking-[2px] text-txt-2 mb-[7px]">
         手 機 號 碼
       </label>
       <input
@@ -47,7 +47,7 @@ const phoneError = computed(() => {
     </div>
 
     <div class="mb-3.5">
-      <label class="block text-[11px] tracking-[2px] text-txt-2 mb-[7px]">
+      <label class="block text-[12px] tracking-[2px] text-txt-2 mb-[7px]">
         備 註（選填）
       </label>
       <input
