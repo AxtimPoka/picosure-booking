@@ -77,7 +77,7 @@ export default defineEventHandler(async (event) => {
       const supabase = getSupabaseClient()
 
       const { data: appointment, error: dbError } = await supabase
-        .from('appointments')
+        .from('picosure_consultation')
         .insert({
           concerns: data.concerns,
           areas: concernLabels,
@@ -133,7 +133,7 @@ export default defineEventHandler(async (event) => {
         const { getSupabaseClient } = await import('~/utils/supabase')
         const supabase = getSupabaseClient()
         await supabase
-          .from('appointments')
+          .from('picosure_consultation')
           .update({ gcal_event_id: gcalEventId })
           .eq('id', appointmentId)
       } catch {
