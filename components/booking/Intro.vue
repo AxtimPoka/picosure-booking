@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useBookingStore } from "~/stores/booking";
 import bgImage from "~/assets/imgs/Frame 8.png";
+import logoImage from "~/public/clinic-logo.png";
 
 const store = useBookingStore();
 </script>
@@ -43,7 +44,7 @@ const store = useBookingStore();
     <!-- ── Hero Body ── -->
     <div class="relative bg-white px-7 -mt-1 pb-32 max-w-[480px] mx-auto">
       <!-- Logo -->
-      <img src="/clinic-logo.png" alt="Logo" class="w-24 object-contain mb-5 mx-auto" />
+      <img :src="logoImage" alt="Logo" class="w-24 object-contain mb-5 mx-auto" />
 
       <!-- 主標題 -->
       <h1 class="font-serif text-[22px] font-normal text-txt-1 leading-[1.55] mb-4 text-center">
