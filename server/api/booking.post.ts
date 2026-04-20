@@ -85,6 +85,7 @@ export default defineEventHandler(async (event) => {
           scheduled_at: data.scheduled_at,
           customer_name: data.customer_name,
           customer_phone: data.customer_phone,
+          doctor: data.doctor,
           note: data.note,
           status: 'pending',
         })
