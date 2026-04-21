@@ -117,11 +117,19 @@ const FAQS = [
       </button>
       <span class="text-[12px] text-txt-3">3 / 4</span>
     </div>
-    <button class="btn-main !mb-0" @click="store.goToStep(3)">
+    <button
+      class="btn-main !mb-0"
+      :disabled="!store.canProceedFromConcern"
+      @click="store.goToStep(3)"
+    >
       預約免費諮詢 →
     </button>
     <p class="note mt-3">
-      未勾選膚況也可以直接預約，醫師會在諮詢時為你評估。
+      {{
+        store.canProceedFromConcern
+          ? '可複選，醫師會在諮詢時依你勾選的項目為你評估。'
+          : '請至少勾選一項膚況，我們才能為你提供精準的諮詢方向。'
+      }}
     </p>
   </div>
 </template>

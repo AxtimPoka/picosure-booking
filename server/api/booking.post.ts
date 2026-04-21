@@ -9,9 +9,8 @@ const bookingSchema = z.object({
         label: z.string(),
       }),
     )
-    .max(6)
-    .optional()
-    .default([]),
+    .min(1, '請至少選擇一項關注膚況')
+    .max(6),
   location: z.string().min(1),
   scheduled_at: z.string().datetime({ offset: true }),
   customer_name: z.string().min(1),

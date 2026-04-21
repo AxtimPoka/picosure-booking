@@ -61,6 +61,8 @@ export const useBookingStore = defineStore('booking', {
         .filter(Boolean) as string[]
     },
 
+    canProceedFromConcern: (state) => state.selectedConcerns.length > 0,
+
     canProceedFromCalendar: (state) =>
       state.selectedLocation !== '' &&
       state.selectedDate !== '' &&
