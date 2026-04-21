@@ -33,7 +33,7 @@ const store = useBookingStore();
           皮 秒 雷 射
         </h2>
         <p class="text-[12px] text-white/70 tracking-[2px]">
-          755nm · 蜂巢透鏡 · LIOB 養膚科技
+          755nm · 蜂巢透鏡 · LIOB 光震波技術
         </p>
       </div>
 
@@ -49,14 +49,14 @@ const store = useBookingStore();
       <!-- 主標題 -->
       <h1 class="font-serif text-[24px] font-normal text-txt-1 leading-[1.55] mb-4 text-center">
         想要的不只是<span class="text-teal-dk font-medium border-b-2 border-teal-line">除斑</span>，<br />
-        而是膚質真正<span class="text-teal-dk font-medium border-b-2 border-teal-line">變好</span>
+        更追求<span class="text-teal-dk font-medium border-b-2 border-teal-line">肌膚的細緻光澤</span>
       </h1>
 
       <!-- 描述 -->
       <p class="text-[16px] text-txt-2 leading-[2] font-light mb-7 text-center">
-        傳統雷射讓斑淡了，膚質卻沒提升。<br />
         Picosure Pro 以 755nm 精準波長與蜂巢透鏡，<br />
-        從真皮層喚醒新生與修復。
+        有助於從真皮層促進膠原蛋白新生，<br />
+        輔助提升整體膚質表現。
       </p>
 
       <!-- 3 個 stat 數據卡 -->
@@ -76,21 +76,25 @@ const store = useBookingStore();
           </div>
         </div>
         <div class="bg-bg-card border border-border rounded-xl py-4 px-2 text-center">
-          <div class="font-en text-[32px] text-teal-dk font-bold leading-none ">
-            0</div>
-          <div class="text-[13px] text-txt-2 leading-[1.5] font-medium  mb-2">
-            開放性傷口
-          </div>
+          <div class="font-en text-[32px] text-teal-dk font-bold leading-none mb-2">
+            LIOB</div>
           <div class="text-[13px] text-txt-2 leading-[1.5] font-light">
-            LIOB 養膚科技
+            光震波效應<br />深度修復技術
           </div>
         </div>
       </div>
 
       <!-- CTA -->
-      <button class="btn-main !mb-0" @click="store.goToStep(1)">
+      <button class="btn-main mb-6" @click="store.goToStep(1)">
         了解 PicoSure Pro 核心科技 →
       </button>
+
+      <!-- Medical Disclaimer -->
+      <div class="px-4 py-3 bg-gray-50 rounded-lg border border-gray-200">
+        <p class="text-[12px] text-txt-3 leading-[1.7]">
+          <strong class="text-txt-2">醫療資訊聲明：</strong>本頁面資訊僅供衛教參考，不代表療效保證。任何療程均有風險，可能產生副作用。Picosure Pro 皮秒雷射之適應症、禁忌症、副作用及處置優缺點，請務必於諮詢時由專業醫師當面說明。療程效果因個人體質與膚況而異。
+        </p>
+      </div>
     </div>
   </div>
 </template>
