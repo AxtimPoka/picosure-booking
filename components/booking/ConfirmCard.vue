@@ -13,6 +13,10 @@ const dateDisplay = computed(() => {
 });
 
 async function submitBooking() {
+  if (store.selectedConcerns.length === 0) {
+    errorMsg.value = "請先返回勾選至少一項關注膚況。";
+    return;
+  }
   submitting.value = true;
   errorMsg.value = "";
 
