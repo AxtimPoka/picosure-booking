@@ -65,6 +65,5 @@ const phoneError = computed(() => {
     >
       下一步 · 確認預約
     </button>
-    <div class="note">送出後客服將於 30 分鐘內確認，並以 LINE 通知您</div>
   </div>
 </template>
