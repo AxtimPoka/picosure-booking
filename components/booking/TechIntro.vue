@@ -12,8 +12,8 @@ const store = useBookingStore();
         CORE TECHNOLOGY
       </div>
       <h2 class="text-[22px] font-medium text-txt-1 leading-[1.55]">
-        為什麼 Picosure Pro 鉑金蜂巢皮秒<br />
-        和其他皮秒不一樣？
+        為什麼 Picosure Pro<br />
+        採用 755nm 波長技術？
       </h2>
     </div>
 
@@ -40,17 +40,19 @@ const store = useBookingStore();
             一般
           </div>
           <div class="text-[12px] text-txt-3 mt-1.5 leading-[1.4]">
-            穿透深但易傷及<br />微血管組織
+            穿透較深<br />不同技術特性
           </div>
         </div>
       </div>
 
       <h3 class="text-[18px] font-medium text-txt-1 mb-2.5 leading-[1.5]">
-        755nm 波長 · 黑色素的精準獵手
+        755nm 波長 · 對黑色素的專一性
       </h3>
       <p class="text-[15px] text-txt-2 leading-[1.85] font-light">
-        755nm 對黑色素的吸收率是含氧血紅素的
-        <span class="text-teal-dk font-medium">50 倍</span>，能量幾乎不被血管誤吸收。相較 1064nm 常見的術後出血點與瘀青，755nm 術後僅有輕微泛紅，多數人隔天即可正常上班。
+        755nm 對黑色素的吸收率較含氧血紅素高<span class="text-teal-dk font-medium">*</span>，有助於減少能量被血管吸收的情形。臨床觀察顯示，術後多數人僅有輕微泛紅反應。實際恢復狀況因個人體質與能量設定而異。
+      </p>
+      <p class="text-[11px] text-txt-3 mt-2 leading-[1.5]">
+        *數據參考自原廠技術文獻
       </p>
     </div>
 
@@ -72,18 +74,20 @@ const store = useBookingStore();
         蜂巢透鏡 × LIOB 效應
       </h3>
       <p class="text-[15px] text-txt-2 leading-[1.85] font-light">
-        蜂巢透鏡將
-        <span class="text-teal-dk font-medium">70% 能量聚焦在不到 10% 的治療面積</span>，觸發 LIOB（雷射誘導光學擊穿）效應——在表皮下產生微小空泡與壓力波，喚醒真皮層纖維母細胞自主合成膠原蛋白與彈力蛋白。
+        蜂巢透鏡能將能量聚焦<span class="text-teal-dk font-medium">*</span>，觸發 LIOB（雷射誘導光學擊穿）效應——在表皮下產生微小空泡與壓力波，有助於促進真皮層纖維母細胞合成膠原蛋白與彈力蛋白。
       </p>
       <p class="text-[15px] text-txt-2 leading-[1.85] font-light mt-3">
-        全程<span class="text-teal-dk font-medium">無開放性傷口</span>，表皮完整性不受破壞——「表面看不出來，深層正在重建」。
+        此技術採用物理壓力波機制，有助於減少對表皮的熱傷害。實際效果因個人膚況而異。
+      </p>
+      <p class="text-[11px] text-txt-3 mt-2 leading-[1.5]">
+        *能量聚焦特性參考自原廠技術文獻
       </p>
     </div>
 
-    <!-- ── Card 3: 養膚三部曲 ── -->
+    <!-- ── Card 3: 療程機制 ── -->
     <div class="bg-bg-card border border-border rounded-2xl p-5 mb-5">
       <h3 class="text-[18px] font-medium text-txt-1 mb-4 leading-[1.5]">
-        養膚三部曲 · 越打越健康
+        療程作用機制說明
       </h3>
 
       <div class="relative pl-7">
@@ -97,7 +101,7 @@ const store = useBookingStore();
           />
           <h4 class="text-[16px] font-medium text-txt-1 mb-1.5">① 結構重建</h4>
           <p class="text-[14.5px] text-txt-2 leading-[1.8] font-light">
-            治療後第一型膠原蛋白與彈性纖維同步新生，真皮層厚度增加，肌膚地基更穩固。
+            療程後有助於促進第一型膠原蛋白與彈性纖維新生。實際效果因個人體質而異。
           </p>
         </div>
 
@@ -105,9 +109,9 @@ const store = useBookingStore();
           <div
             class="absolute -left-[22px] top-1 w-4 h-4 rounded-full bg-teal border-2 border-white ring-2 ring-teal-line"
           />
-          <h4 class="text-[16px] font-medium text-txt-1 mb-1.5">② 屏障強化</h4>
+          <h4 class="text-[16px] font-medium text-txt-1 mb-1.5">② 屏障維護</h4>
           <p class="text-[14.5px] text-txt-2 leading-[1.8] font-light">
-            以物理壓力波取代熱效應，不破壞角質層與基底膜，定期保養後皮膚屏障反而越來越穩固。
+            採用物理壓力波機制，有助於減少對角質層的熱傷害。適當的療程規劃有助於維護肌膚屏障環境。
           </p>
         </div>
 
@@ -115,22 +119,19 @@ const store = useBookingStore();
           <div
             class="absolute -left-[22px] top-1 w-4 h-4 rounded-full bg-teal border-2 border-white ring-2 ring-teal-line"
           />
-          <h4 class="text-[16px] font-medium text-txt-1 mb-1.5">③ 色素環境優化</h4>
+          <h4 class="text-[16px] font-medium text-txt-1 mb-1.5">③ 色素代謝</h4>
           <p class="text-[14.5px] text-txt-2 leading-[1.8] font-light">
-            改善真皮層微環境，讓皮膚結構更完整，黑色素不易沉積，從源頭降低色素復發機率。
+            有助於改善真皮層環境，輔助色素代謝。實際效果需由醫師評估個人膚況後說明。
           </p>
         </div>
       </div>
     </div>
 
-    <!-- ── Quote box ── -->
-    <div
-      class="border-l-[3px] border-teal-line bg-teal-faint/40 pl-5 py-4 pr-4 rounded-r-lg mb-7"
-    >
-      <p class="text-[15.5px] text-txt-2 italic leading-[1.85] font-light">
-        「定期施打後，即使中間暫停一段時間，膚質仍持續在進步——細胞的修復機制一旦被喚醒，會持續自我運作。」
+    <!-- ── Medical Disclaimer ── -->
+    <div class="mb-7 p-4 bg-gray-50 rounded-lg border border-gray-200">
+      <p class="text-[13px] text-txt-3 leading-[1.7]">
+        <strong class="text-txt-2">醫療資訊聲明：</strong>本頁面資訊僅供衛教參考，不代表療效保證。任何療程均有風險，可能產生副作用（如：紅腫、結痂、色素沉著等）。Picosure Pro 皮秒雷射之適應症、禁忌症、副作用及處置優缺點，請務必於諮詢時由專業醫師當面說明。療程效果因個人體質與膚況而異。
       </p>
-      <div class="text-[12px] text-txt-3 mt-2 not-italic">— 臨床觀察回饋</div>
     </div>
 
     <!-- ── Nav footer ── -->
