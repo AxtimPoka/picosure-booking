@@ -178,7 +178,7 @@ function startOver() {
                 ⓘ
               </div>
               <h4 class="text-[18px] font-medium text-txt-1">
-                諮詢完全免費，請放心
+                專業評估流程透明公開
               </h4>
             </div>
             <ul class="space-y-2 pl-8">
