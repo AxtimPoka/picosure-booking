@@ -57,6 +57,12 @@ export default defineEventHandler(async (event) => {
       const start = new Date(evt.start?.dateTime || evt.start?.date || '')
       const end = new Date(evt.end?.dateTime || evt.end?.date || '')
 
+      // 紅色事件（colorId 11 = 番茄色）= 公休時段，依事件時間範圍擋格
+      if (evt.colorId === '11') {
+        bookedSlots.push({ start, end })
+        continue
+      }
+
       if (summary.includes('醫師')) {
         doctorEvents.push({ doctor: summary, start, end })
       } else {
