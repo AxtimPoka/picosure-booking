@@ -1,4 +1,4 @@
-import { getCalendarClient, getCalendarId } from '~/utils/googleCalendar'
+import { getCalendarClient, getCalendarIds } from '~/utils/googleCalendar'
 
 interface SlotInfo {
   time: string
@@ -28,45 +28,53 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    const calendarId = getCalendarId(location)
+    const { schedule, booking, isSplit } = getCalendarIds(location)
     const calendar = getCalendarClient()
 
     const timeMin = `${date}T00:00:00+08:00`
     const timeMax = `${date}T23:59:59+08:00`
 
-    // 1. 用 events.list 取得當天所有事件
-    const eventsRes = await calendar.events.list({
-      calendarId,
-      timeMin,
-      timeMax,
-      timeZone: 'Asia/Taipei',
-      singleEvents: true,
-      orderBy: 'startTime',
-    })
+    const listEvents = (calendarId: string) =>
+      calendar.events.list({
+        calendarId,
+        timeMin,
+        timeMax,
+        timeZone: 'Asia/Taipei',
+        singleEvents: true,
+        orderBy: 'startTime',
+      })
 
-    const events = eventsRes.data.items || []
+    // 1. 取得事件（分離模式：並行查 SCHEDULE + BOOKING；舊架構：只查單一日曆）
+    const [scheduleRes, bookingRes] = isSplit
+      ? await Promise.all([listEvents(schedule), listEvents(booking)])
+      : [await listEvents(schedule), null]
 
-    // 2. 區分「醫師排班事件」與「已預約事件」
-    //    醫師排班事件：標題含有「醫師」
-    //    已預約事件：其餘所有事件（已佔用時段）
+    // 2. 區分「醫師排班事件」與「已預約 / 公休事件」
+    //    SCHEDULE 日曆：colorId=11 視為公休，summary 含「醫師」視為排班
+    //    BOOKING 日曆：所有事件都視為已預約
+    //    舊架構（單一日曆）：照原本規則，「其他」視為已預約
     const doctorEvents: { doctor: string; start: Date; end: Date }[] = []
     const bookedSlots: { start: Date; end: Date }[] = []
 
-    for (const evt of events) {
+    for (const evt of scheduleRes.data.items || []) {
       const summary = evt.summary || ''
       const start = new Date(evt.start?.dateTime || evt.start?.date || '')
       const end = new Date(evt.end?.dateTime || evt.end?.date || '')
 
-      // 紅色事件（colorId 11 = 番茄色）= 公休時段，依事件時間範圍擋格
       if (evt.colorId === '11') {
         bookedSlots.push({ start, end })
-        continue
-      }
-
-      if (summary.includes('醫師')) {
+      } else if (summary.includes('醫師')) {
         doctorEvents.push({ doctor: summary, start, end })
-      } else {
-        // 只要不是醫師排班事件，就視為已預約/已佔用的時段
+      } else if (!isSplit) {
+        // 舊架構：混合日曆裡其他事件視為已預約；分離模式下忽略
+        bookedSlots.push({ start, end })
+      }
+    }
+
+    if (bookingRes) {
+      for (const evt of bookingRes.data.items || []) {
+        const start = new Date(evt.start?.dateTime || evt.start?.date || '')
+        const end = new Date(evt.end?.dateTime || evt.end?.date || '')
         bookedSlots.push({ start, end })
       }
     }
