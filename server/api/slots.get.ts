@@ -73,6 +73,10 @@ export default defineEventHandler(async (event) => {
 
     if (bookingRes) {
       for (const evt of bookingRes.data.items || []) {
+        const summary = evt.summary || ''
+        // 防衛：BOOKING 日曆裡若殘留班表/公休（遷移過渡期 legacy 仍混合），忽略不視為已預約
+        if (evt.colorId === '11') continue
+        if (summary.includes('醫師')) continue
         const start = new Date(evt.start?.dateTime || evt.start?.date || '')
         const end = new Date(evt.end?.dateTime || evt.end?.date || '')
         bookedSlots.push({ start, end })
