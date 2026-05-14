@@ -12,11 +12,11 @@
   },
   "dependencies": {
     "@nuxtjs/tailwindcss": "^6.12.2",
-    "@pinia/nuxt": "^0.9.0",
+    "@pinia/nuxt": "^0.10.1",
     "@supabase/supabase-js": "^2.49.0",
     "googleapis": "^148.0.0",
     "nuxt": "^3.16.0",
-    "pinia": "^2.3.0",
+    "pinia": "^3.0.4",
     "posthog-js": "^1.373.4",
     "vue": "^3.5.0",
     "zod": "^3.24.0"
