@@ -2,9 +2,21 @@
 import { useBookingStore } from "~/stores/booking";
 
 const store = useBookingStore();
+const posthog = usePosthog();
 const submitting = ref(false);
 const submitted = ref(false);
 const errorMsg = ref("");
+
+function trackingPayload() {
+  return {
+    flow: "picosure-booking",
+    location: store.selectedLocation,
+    date: store.selectedDate,
+    time: store.selectedTime,
+    concern_count: store.selectedConcerns.length,
+    concern_ids: store.selectedConcerns,
+  };
+}
 
 const dateDisplay = computed(() => {
   if (!store.selectedDate) return "";
@@ -19,6 +31,7 @@ async function submitBooking() {
   }
   submitting.value = true;
   errorMsg.value = "";
+  posthog?.capture("booking_submitted", trackingPayload());
 
   try {
     await $fetch("/api/booking", {
@@ -41,8 +54,13 @@ async function submitBooking() {
     });
     submitted.value = true;
     store.currentStep = 6;
+    posthog?.capture("booking_succeeded", trackingPayload());
   } catch (err: any) {
     errorMsg.value = err?.data?.message || "預約失敗，請稍後再試。";
+    posthog?.capture("booking_failed", {
+      ...trackingPayload(),
+      error_message: (err?.data?.message || err?.message || "unknown").slice(0, 200),
+    });
   } finally {
     submitting.value = false;
   }
@@ -130,11 +148,11 @@ function startOver() {
           </div>
           <div class="flex justify-between items-start py-2.5 border-b border-[rgba(115,198,203,0.10)]">
             <span class="text-[14px] text-txt-3 tracking-[2px] pt-0.5 shrink-0">姓名</span>
-            <span class="text-[18px] text-txt-1 text-right">{{ store.customerName }}</span>
+            <span class="text-[18px] text-txt-1 text-right"><span data-ph-no-capture>{{ store.customerName }}</span></span>
           </div>
           <div class="flex justify-between items-start py-2.5">
             <span class="text-[14px] text-txt-3 tracking-[2px] pt-0.5 shrink-0">手機</span>
-            <span class="text-[18px] text-txt-1 text-right">{{ store.customerPhone }}</span>
+            <span class="text-[18px] text-txt-1 text-right"><span data-ph-no-capture>{{ store.customerPhone }}</span></span>
           </div>
         </div>
       </div>
@@ -313,7 +331,7 @@ function startOver() {
           >
             <span class="text-[14px] text-txt-3 tracking-[2px] pt-0.5 shrink-0">姓名</span>
             <span class="text-[18px] text-txt-1 text-right">
-              {{ store.customerName }}
+              <span data-ph-no-capture>{{ store.customerName }}</span>
             </span>
           </div>
 
@@ -323,7 +341,7 @@ function startOver() {
           >
             <span class="text-[14px] text-txt-3 tracking-[2px] pt-0.5 shrink-0">手機</span>
             <span class="text-[18px] text-txt-1 text-right">
-              {{ store.customerPhone }}
+              <span data-ph-no-capture>{{ store.customerPhone }}</span>
             </span>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { getCalendarClient, getCalendarId } from '~/utils/googleCalendar'
+import { getCalendarClient, getCalendarIds } from '~/utils/googleCalendar'
 
 const bookingSchema = z.object({
   concerns: z
@@ -32,13 +32,14 @@ export default defineEventHandler(async (event) => {
   }
 
   const data = parsed.data
-  const calendarId = getCalendarId(data.location)
+  const { booking: bookingCalendarId } = getCalendarIds(data.location)
   const calendar = getCalendarClient()
 
   // Derive concern labels for downstream use
   const concernLabels = data.concerns.map((c) => c.label)
 
-  // 2. Double-check slot availability (prevent race condition)
+  // 2. Race-condition check：只查 BOOKING 日曆即可
+  //    （公休/班表已由 slots.get.ts 處理；此處只防同時段被另一單同時下單）
   const slotStart = new Date(data.scheduled_at)
   const slotEnd = new Date(slotStart.getTime() + 60 * 60 * 1000)
 
@@ -48,11 +49,11 @@ export default defineEventHandler(async (event) => {
         timeMin: slotStart.toISOString(),
         timeMax: slotEnd.toISOString(),
         timeZone: 'Asia/Taipei',
-        items: [{ id: calendarId }],
+        items: [{ id: bookingCalendarId }],
       },
     })
 
-    const busySlots = freebusyRes.data.calendars?.[calendarId]?.busy || []
+    const busySlots = freebusyRes.data.calendars?.[bookingCalendarId]?.busy || []
     if (busySlots.length > 0) {
       throw createError({
         statusCode: 409,
@@ -103,11 +104,11 @@ export default defineEventHandler(async (event) => {
     console.log('[Booking] Supabase not configured, skipping DB write')
   }
 
-  // 4. Create Google Calendar event
+  // 4. Create Google Calendar event in BOOKING calendar
   let gcalEventId = ''
   try {
     const gcalEvent = await calendar.events.insert({
-      calendarId,
+      calendarId: bookingCalendarId,
       requestBody: {
         summary: `PicoSure 諮詢預約 - ${data.customer_name}`,
         description: [
@@ -125,16 +126,19 @@ export default defineEventHandler(async (event) => {
       },
     })
     gcalEventId = gcalEvent.data.id || ''
-    console.log('[Booking] GCal event created:', gcalEventId)
+    console.log('[Booking] GCal event created:', gcalEventId, 'in calendar:', bookingCalendarId)
 
-    // Update Supabase with gcal_event_id if available
+    // Update Supabase with gcal_event_id + gcal_calendar_id if available
     if (config.supabaseUrl && config.supabaseServiceRoleKey && gcalEventId) {
       try {
         const { getSupabaseClient } = await import('~/utils/supabase')
         const supabase = getSupabaseClient()
         await supabase
           .from('picosure_consultation')
-          .update({ gcal_event_id: gcalEventId })
+          .update({
+            gcal_event_id: gcalEventId,
+            gcal_calendar_id: bookingCalendarId,
+          })
           .eq('id', appointmentId)
       } catch {
         // non-critical

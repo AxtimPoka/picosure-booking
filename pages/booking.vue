@@ -2,6 +2,17 @@
 import { useBookingStore } from "~/stores/booking";
 
 const store = useBookingStore();
+const posthog = usePosthog();
+
+const STEP_NAMES: Record<number, string> = {
+  0: "intro",
+  1: "tech_intro",
+  2: "concern",
+  3: "time",
+  4: "contact",
+  5: "confirm",
+  6: "success",
+};
 
 // 預約三步驟（Step 3-5）
 const BOOKING_STEPS = [
@@ -33,9 +44,18 @@ const showBookingSteps = computed(
 
 watch(
   () => store.currentStep,
-  () => {
+  (step) => {
+    if (!import.meta.client) return;
     window.scrollTo({ top: 0, behavior: "smooth" });
+    posthog?.capture("booking_step_viewed", {
+      flow: "picosure-booking",
+      step_number: step,
+      step_name: STEP_NAMES[step] ?? `step_${step}`,
+      concern_count: store.selectedConcerns.length,
+      location: store.selectedLocation || null,
+    });
   },
+  { immediate: true },
 );
 </script>
 
