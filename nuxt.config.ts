@@ -16,11 +16,23 @@ export default defineNuxtConfig({
     gcalCalendarIdTaipei: '',
     gcalCalendarIdTaichung: '',
     gcalCalendarIdKaohsiung: '',
+    useSplitCalendars: '',
+    gcalCalendarIdTaipeiSchedule: '',
+    gcalCalendarIdTaipeiBooking: '',
+    gcalCalendarIdTaichungSchedule: '',
+    gcalCalendarIdTaichungBooking: '',
+    gcalCalendarIdKaohsiungSchedule: '',
+    gcalCalendarIdKaohsiungBooking: '',
     lineChannelAccessToken: '',
     lineStaffGroupId: '',
     lineStaffGroupIdKaohsiung: '',
     lineStaffGroupIdTaipei: '',
     lineStaffGroupIdTaichung: '',
+    public: {
+      posthogKey: '',
+      posthogHost: 'https://us.i.posthog.com',
+      siteName: 'picosure-booking',
+    },
   },
 
   app: {
