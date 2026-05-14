@@ -28,6 +28,11 @@ export default defineNuxtConfig({
     lineStaffGroupIdKaohsiung: '',
     lineStaffGroupIdTaipei: '',
     lineStaffGroupIdTaichung: '',
+    public: {
+      posthogKey: '',
+      posthogHost: 'https://us.i.posthog.com',
+      siteName: 'picosure-booking',
+    },
   },
 
   app: {
