@@ -55,6 +55,11 @@ async function submitBooking() {
     submitted.value = true;
     store.currentStep = 6;
     posthog?.capture("booking_succeeded", trackingPayload());
+    window.fbq?.("track", "Schedule", {
+      content_category: "picosure",
+      content_name: store.selectedLocation,
+      num_items: store.selectedConcerns.length,
+    });
   } catch (err: any) {
     errorMsg.value = err?.data?.message || "預約失敗，請稍後再試。";
     posthog?.capture("booking_failed", {
