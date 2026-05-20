@@ -32,6 +32,7 @@ export default defineNuxtConfig({
       posthogKey: '',
       posthogHost: 'https://us.i.posthog.com',
       siteName: 'picosure-booking',
+      metaPixelId: '',
     },
   },
 
